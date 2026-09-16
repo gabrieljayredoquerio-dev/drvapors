@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr Vapors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<div class="vapor-bg"><span></span><span></span><span></span></div>
+<div id="toast-stack"></div>
+ 
+<!-- ============ AGE CONFIRMATION MODULE ============ -->
+<div class="age-gate" id="age-gate">
+  <div class="age-card">
+    <div class="brand">DR <span>VAPORS</span></div>
+    <p>This site sells nicotine vapor products. You must confirm you are of legal smoking age in your jurisdiction to continue.</p>
+    <div class="age-actions">
+      <button id="age-no">No, I'm not</button>
+      <button id="age-yes">Yes, I'm 18+</button>
+    </div>
+    <div class="age-blocked hidden" id="age-blocked-msg">You must be of legal age to access this site.</div>
+    <div class="age-fine">By entering you agree this site uses session storage to remember your confirmation.</div>
+  </div>
+</div>
+ 
+<!-- ============ LOGIN / REGISTRATION MODULE ============ -->
+<div class="auth-wrap hidden" id="auth-page">
+  <div class="auth-card">
+    <div class="auth-brand"><div class="brand">DR <span>VAPORS</span></div></div>
+    <div class="auth-tag">Verified members only.</div>
+ 
+    <div class="auth-tabs">
+      <button id="tab-login" class="active">Log In</button>
+      <button id="tab-register">Register</button>
+    </div>
+ 
+    <!-- LOGIN FORM -->
+    <form id="login-form">
+      <div class="field">
+        <label for="login-email">Email</label>
+        <input type="text" id="login-email" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" autocomplete="current-password" required>
+        <div class="field-error" id="login-error"></div>
+      </div>
+      <button type="submit" class="btn block">Log In</button>
+      <div class="auth-msg" id="login-msg"></div>
+    </form>
+ 
+    <!-- REGISTER FORM -->
+    <form id="register-form" class="hidden">
+      <div class="field">
+        <label for="reg-name">Full name</label>
+        <input type="text" id="reg-name" required>
+      </div>
+      <div class="field">
+        <label for="reg-email">Email</label>
+        <input type="text" id="reg-email" required>
+        <div class="field-error" id="reg-email-error"></div>
+      </div>
+      <div class="field">
+        <label for="reg-dob">Date of birth</label>
+        <input type="date" id="reg-dob" required>
+      </div>
+      <div class="field">
+        <label for="reg-password">Password</label>
+        <input type="password" id="reg-password" required>
+      </div>
+      <div class="field">
+        <label for="reg-confirm">Confirm password</label>
+        <input type="password" id="reg-confirm" required>
+        <div class="field-error" id="reg-password-error"></div>
+      </div>
+      <button type="submit" class="btn block">Create Account</button>
+      <div class="auth-msg" id="register-msg"></div>
+    </form>
+ 
+    <div class="auth-hint">Admin demo — email: <b>admin@drvapors.com</b> / password: <b>Admin123!</b></div>
+  </div>
+</div>
+ 
+<!-- ============ APP SHELL ============ -->
+<div class="app-shell hidden" id="app-shell">
+ 
+  <header class="topbar">
+    <div class="brand" data-nav="home">DR <span>VAPORS</span></div>
+    <nav class="navlinks" id="navlinks">
+      <button data-nav="home">Home</button>
+      <button data-nav="shop">Shop</button>
+      <button data-nav="about">About</button>
+      <button data-nav="wishlist">Wishlist<span class="badge hidden" id="wishlist-badge">0</span></button>
+      <button data-nav="cart">Cart<span class="badge hidden" id="cart-badge">0</span></button>
+      <button data-nav="orders">Orders</button>
+      <button data-nav="notifications">Alerts<span class="badge hidden" id="notif-badge">0</span></button>
+      <button data-nav="profile">Profile</button>
+      <button data-nav="admin" id="admin-nav-btn" class="hidden">Admin</button>
+    </nav>
+    <div class="user-pill">
+      <span class="who">Hi, <b id="topbar-username">Guest</b></span>
+      <button class="btn ghost small" id="logout-btn">Log out</button>
+    </div>
+  </header>
+ 
+  <main>
+ 
+    <!-- ============ HOME MODULE ============ -->
+    <section class="page" id="page-home">
+      <div class="hero">
+        <div>
+          <h1>Clean clouds.<br><span class="accent">Zero compromise.</span></h1>
+          <p class="lede">Dr Vapors stocks lab-tested disposables, e-liquids, mods and coils for verified adult customers. Rated by the people who actually vape them.</p>
+          <div class="cta-row">
+            <button class="btn" data-nav="shop">Shop the range</button>
+            <button class="btn ghost" data-nav="about">Our story</button>
+          </div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="stat"><span class="l">Products in stock</span><span class="n" id="stat-products">0</span></div>
+          <div class="stat"><span class="l">Avg. store rating</span><span class="n" id="stat-rating">0.0</span></div>
+          <div class="stat"><span class="l">Members served</span><span class="n" id="stat-members">0</span></div>
+        </div>
+      </div>
+ 
+      <div class="section-head"><h2>Featured this week</h2><span class="sub">Top rated &amp; bestselling</span></div>
+      <div class="grid" id="featured-grid"></div>
+    </section>
+ 
+    <!-- ============ ABOUT US MODULE ============ -->
+    <section class="page" id="page-about">
+      <div class="section-head"><h2>About Dr Vapors</h2></div>
+      <p style="max-width:64ch; color:var(--text-muted); margin-bottom:16px;">Dr Vapors opened with one rule: sell only what we'd vape ourselves. Every disposable, e-liquid and mod on this shelf is sourced from licensed manufacturers and checked before it reaches the catalog.</p>
+      <p style="max-width:64ch; color:var(--text-muted); margin-bottom:16px;"><b style="color:var(--text)">Our mission</b> is to give adult smokers switching to vapor a trustworthy, no-nonsense place to buy — clear stock levels, honest ratings from real buyers, and support that answers fast.</p>
+      <p style="max-width:64ch; color:var(--text-muted);"><b style="color:var(--text)">Our service</b> covers age-verified accounts, order tracking from placement to delivery, a wishlist for future restocks, and live chat with our team. Every account here has confirmed they meet the legal vaping age.</p>
+    </section>
+ 
+    <!-- ============ PRODUCT LIST + RATING + WISHLIST MODULES ============ -->
+    <section class="page" id="page-shop">
+      <div class="section-head"><h2>Shop</h2><span class="sub" id="shop-count-sub"></span></div>
+      <div class="chip-row" id="category-chips"></div>
+      <div class="grid" id="shop-grid"></div>
+    </section>
+ 
+    <!-- ============ WISHLIST MODULE ============ -->
+    <section class="page" id="page-wishlist">
+      <div class="section-head"><h2>Wishlist</h2><span class="sub">Saved for later</span></div>
+      <div class="grid" id="wishlist-grid"></div>
+    </section>
+ 
+    <!-- ============ SHOPPING CART MODULE ============ -->
+    <section class="page" id="page-cart">
+      <div class="section-head"><h2>Your Cart</h2></div>
+      <div id="cart-list"></div>
+      <div class="summary-card" id="cart-summary">
+        <div class="row"><span>Subtotal</span><span id="cart-subtotal">₱0.00</span></div>
+        <div class="row"><span>Delivery</span><span id="cart-delivery">₱0.00</span></div>
+        <div class="row total"><span>Total</span><span id="cart-total">₱0.00</span></div>
+        <button class="btn block" style="margin-top:16px" id="checkout-btn">Checkout</button>
+      </div>
+    </section>
+ 
+    <!-- ============ ORDER HISTORY + ORDER TRACKING MODULES ============ -->
+    <section class="page" id="page-orders">
+      <div class="section-head"><h2>Order History</h2><span class="sub">Newest first — click an order to track it</span></div>
+      <div id="orders-list"></div>
+    </section>
+ 
+    <!-- ============ USER PROFILE MODULE ============ -->
+    <section class="page" id="page-profile">
+      <div class="section-head"><h2>Your Profile</h2></div>
+      <div class="profile-grid">
+        <div class="profile-card">
+          <div class="avatar-ring" id="avatar-initial">D</div>
+          <div style="font-weight:800; font-size:1.1rem" id="profile-name-display">—</div>
+          <div style="color:var(--text-muted); font-size:.82rem; margin-bottom:4px" id="profile-email-display">—</div>
+          <div class="role-tag" id="profile-role-tag">customer</div>
+        </div>
+        <div class="profile-card">
+          <form id="profile-form">
+            <div class="field"><label for="profile-name">Full name</label><input type="text" id="profile-name"></div>
+            <div class="field"><label for="profile-address">Delivery address</label><input type="text" id="profile-address" placeholder="Street, City"></div>
+            <div class="field"><label for="profile-phone">Contact number</label><input type="text" id="profile-phone" placeholder="09XX XXX XXXX"></div>
+            <button type="submit" class="btn">Save changes</button>
+            <span class="auth-msg ok" id="profile-msg"></span>
+          </form>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- ============ NOTIFICATION & MESSAGING MODULE ============ -->
+    <section class="page" id="page-notifications">
+      <div class="section-head"><h2>Notifications &amp; Support</h2></div>
+      <div class="notif-layout">
+        <div>
+          <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:1.1rem">Notifications</h2><button class="btn ghost small" id="mark-read-btn">Mark all read</button></div>
+          <div class="notif-list" id="notif-list"></div>
+        </div>
+        <div>
+          <div class="section-head" style="margin-bottom:12px"><h2 style="font-size:1.1rem">Live chat with support</h2></div>
+          <div class="chat-box">
+            <div class="chat-thread" id="chat-thread"></div>
+            <form class="chat-input" id="chat-form">
+              <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
+              <button type="submit">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <!-- ============ ADMIN: PRODUCT / USER / ORDER MANAGEMENT MODULES ============ -->
+    <section class="page" id="page-admin">
+      <div class="section-head"><h2>Admin Dashboard</h2></div>
+      <div class="admin-tabs">
+        <button data-admin-tab="products" class="active">Products</button>
+        <button data-admin-tab="users">Users</button>
+        <button data-admin-tab="orders">Orders</button>
+      </div>
+ 
+      <div id="admin-products" class="admin-panel">
+        <form class="admin-form" id="product-form">
+          <div class="field" style="margin:0"><label>Name</label><input type="text" id="pf-name" required></div>
+          <div class="field" style="margin:0"><label>Category</label><input type="text" id="pf-category" required></div>
+          <div class="field" style="margin:0"><label>Price (₱)</label><input type="number" id="pf-price" min="0" step="0.01" required></div>
+          <div class="field" style="margin:0"><label>Stock</label><input type="number" id="pf-stock" min="0" required></div>
+          <button type="submit" class="btn">Add product</button>
+        </form>
+        <table>
+          <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th>Rating</th><th></th></tr></thead>
+          <tbody id="admin-products-body"></tbody>
+        </table>
+      </div>
+ 
+      <div id="admin-users" class="admin-panel hidden">
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Orders</th></tr></thead>
+          <tbody id="admin-users-body"></tbody>
+        </table>
+      </div>
+ 
+      <div id="admin-orders" class="admin-panel hidden">
+        <table>
+          <thead><tr><th>Order ID</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody id="admin-orders-body"></tbody>
+        </table>
+      </div>
+    </section>
+ 
+  </main>
+ 
+  <footer>© <span id="year"></span> Dr Vapors. Verified 18+ members only. Vaping products are not risk-free.</footer>
+</div>
+ 
+<script src="script.js"></script>
+</body>
+</html>
